@@ -8,8 +8,4 @@ def is_available(username: str) -> bool:
 
 
 def are_available(usernames: list) -> list:
-    available = []
-    for username in usernames:
-        if is_available(username):
-            available.append(username)
-    return available
+    return list(filter(is_available, usernames))
