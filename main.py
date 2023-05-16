@@ -1,5 +1,5 @@
 import os
-import github
+import platforms.github as github
 
 
 def process_input(input_dir: str = os.path.join(os.path.dirname(__file__),
