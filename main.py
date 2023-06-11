@@ -2,6 +2,7 @@ import os
 import platforms.github as github
 import platforms.npm as npm
 import platforms.instagram as instagram
+import platforms.medium as medium
 
 
 def process_input(input_dir: str = os.path.join(os.path.dirname(__file__),
@@ -28,6 +29,7 @@ def main():
     print(f'github : {github.are_available(usernames)}')
     print(f'npm : {npm.are_available(usernames)}')
     print(f'instagram : {instagram.are_available(usernames)}')
+    print(f'medium : {medium.are_available(usernames)}')
 
 
 if __name__ == '__main__':
