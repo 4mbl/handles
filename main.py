@@ -1,6 +1,7 @@
 import os
 import platforms.github as github
 import platforms.npm as npm
+import platforms.instagram as instagram
 
 
 def process_input(input_dir: str = os.path.join(os.path.dirname(__file__),
@@ -26,6 +27,7 @@ def main():
     usernames = process_input()
     print(f'github : {github.are_available(usernames)}')
     print(f'npm : {npm.are_available(usernames)}')
+    print(f'instagram : {instagram.are_available(usernames)}')
 
 
 if __name__ == '__main__':
