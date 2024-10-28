@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "username-checker"
+name = "handles"
 version = "0.0.1"
 description = "A simple CLI tool to check the availability of a username on various platforms."
 readme = "README.md"
@@ -26,7 +26,7 @@ classifiers = [
     "Typing :: Typed",
 ]
 dependencies = ["requests>=2.32.0, <2.33.0"]
-keywords = ["username", "social media"]
+keywords = ["handle", "username", "social media"]
 [[project.authors]]
 name = "4MBL"
 
@@ -36,10 +36,10 @@ file = "LICENSE"
 [project.scripts]
 
 [project.urls]
-Homepage = "https://github.com/4mbl/username-checker"
-"Bug Tracker" = "https://github.com/4mbl/username-checker/issues"
-Documentation = "https://github.com/4mbl/username-checker/blob/main/README.md"
-Repository = "https://github.com/4mbl/username-checker"
+Homepage = "https://github.com/4mbl/handles"
+"Bug Tracker" = "https://github.com/4mbl/handles/issues"
+Documentation = "https://github.com/4mbl/handles/blob/main/README.md"
+Repository = "https://github.com/4mbl/handles"
 
 [tool.ruff]
 line-length = 100

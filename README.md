@@ -1,4 +1,4 @@
-# [username-checker](https://4mbl.link/gh/username-checker)
+# [handles](https://4mbl.link/gh/handles)
 
 > A simple CLI tool to check the availability of a username on various platforms.
 
@@ -11,16 +11,16 @@
 
 ### Installation
 
-Use pip to install `username-checker`.
+Use pip to install `handles`.
 
 ```bash
-python3 -m pip install --upgrade username-checker
+python3 -m pip install --upgrade handles
 ```
 
 ## Usage
 
 ```python
-username-checker --help
+handles --help
 ```
 
 ## License
