@@ -1,0 +1,57 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "username-checker"
+version = "0.0.1"
+description = "A simple CLI tool to check the availability of a username on various platforms."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Environment :: Console",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+dependencies = ["requests>=2.32.0, <2.33.0"]
+keywords = ["username", "social media"]
+[[project.authors]]
+name = "4MBL"
+
+[project.license]
+file = "LICENSE"
+
+[project.scripts]
+
+[project.urls]
+Homepage = "https://github.com/4mbl/username-checker"
+"Bug Tracker" = "https://github.com/4mbl/username-checker/issues"
+Documentation = "https://github.com/4mbl/username-checker/blob/main/README.md"
+Repository = "https://github.com/4mbl/username-checker"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D203", "D213", "ISC001", "COM812"]
+exclude = ["tests"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
