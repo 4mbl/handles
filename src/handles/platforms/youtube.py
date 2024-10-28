@@ -9,5 +9,5 @@ class Youtube(Platform):
     def is_available(self, package: str) -> bool:
         username_lower = package.lower()
         url = f'https://youtube.com/@{username_lower}'
-        response = requests.get(url.format(username_lower), timeout=10)
+        response = requests.get(url, timeout=10)
         return response.status_code == NOT_FOUND
