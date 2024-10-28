@@ -9,6 +9,8 @@ from handles.mapping import Platforms
 
 DEFAULT_INPUT_DIR = Path(Path(__file__).parent, 'secret')
 
+YES_CHAR = '✔️'
+NO_CHAR = '❌'
 
 def process_input(input_dir: Path = DEFAULT_INPUT_DIR) -> list[str]:
     usernames = []
@@ -57,7 +59,13 @@ def cli(argv: list[str] | None = None) -> None:
             else:
                 print(f'Warning: Platform "{platform}" is not supported.')
 
+    name_width = max(len(p.name) for p in selected_platforms) + 2
     for platform in selected_platforms:
-        print(f'{platform.name.lower()} : {platform.value().are_available(usernames)}')
+        results = (
+            platform.value().are_available(usernames)
+            if len(usernames) > 1
+            else (YES_CHAR if platform.value().is_available(usernames[0]) else NO_CHAR)
+        )
+        print(f'{platform.name.lower():<{name_width}} : {results}')
 
     raise SystemExit(0)
