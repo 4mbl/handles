@@ -20,7 +20,11 @@ python3 -m pip install --upgrade handles
 ## Usage
 
 ```python
-handles --help
+# check if a username is available on any of the supported platforms
+handles --platforms '*' myusername
+
+# check if usernames on a file are available on github
+handles --platforms github --file usernames.txt
 ```
 
 ## License
