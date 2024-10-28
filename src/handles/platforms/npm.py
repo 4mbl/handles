@@ -1,12 +1,11 @@
-import requests
+import requests  # type: ignore[import]
+
+from handles.platform import Platform
 
 
-def is_available(package: str) -> bool:
-    package_lower = package.lower()
-    url = f'https://registry.npmjs.org/{package_lower}'
-    response = requests.get(url.format(package_lower), timeout=10).json()
-    return 'error' in response and response['error'] == "Not found"
-
-
-def are_available(packages: list) -> list:
-    return list(filter(is_available, packages))
+class Npm(Platform):
+    def is_available(self, package: str) -> bool:
+        package_lower = package.lower()
+        url = f'https://registry.npmjs.org/{package_lower}'
+        response = requests.get(url.format(package_lower), timeout=10).json()
+        return 'error' in response and response['error'] == 'Not found'

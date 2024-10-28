@@ -34,6 +34,7 @@ name = "4MBL"
 file = "LICENSE"
 
 [project.scripts]
+handles = "handles.cli:cli"
 
 [project.urls]
 Homepage = "https://github.com/4mbl/handles"
@@ -46,7 +47,19 @@ line-length = 100
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D203", "D213", "ISC001", "COM812"]
+ignore = [
+    "D203",
+    "D213",
+    "ISC001",
+    "COM812",
+
+    # disable docstring requirements
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+]
 exclude = ["tests"]
 
 [tool.ruff.format]
