@@ -5,7 +5,7 @@ import argparse
 import os
 from pathlib import Path
 
-from handles.platforms.enum import Platforms
+from handles.mapping import Platforms
 
 DEFAULT_INPUT_DIR = Path(Path(__file__).parent, 'secret')
 
