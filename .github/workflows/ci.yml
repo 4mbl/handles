@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  pull_request:
+    types: [opened, synchronize]
+
+env:
+  PACKAGE_VERSION: 0.0.0
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install package
+        run: |
+          python3 -m pip install --upgrade pip
+          python3 -m pip install . --force-reinstall
+
+      - name: Run tox
+        run: |
+          python3 -m pip install tox tox-gh
+          tox -p auto
+
+      - name: Build package
+        run: |
+          python3 -m pip install build tomli tomli-w
+          python3 -c "import tomli; import tomli_w; reader=open('pyproject.toml', 'rb'); data=tomli.load(reader); data['project']['version']='0.0.0'; writer=open('pyproject.toml', 'wb'); tomli_w.dump(data, writer)"
+          python3 -m build
+
+      - name: Install package
+        run: |
+          python3 -m pip install ./dist/handles-${{ env.PACKAGE_VERSION }}-py3-none-any.whl --force-reinstall
+
+      - name: Run package
+        run: |
+          handles --help
+          handles --platforms '*' 'username'

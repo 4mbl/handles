@@ -1,0 +1,70 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "handles"
+version = "0.1.1"
+description = "Command-line tool to check the availability of a username on various platforms."
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Environment :: Console",
+    "Development Status :: 5 - Production/Stable",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: Implementation :: CPython",
+    "Topic :: Software Development",
+    "Typing :: Typed",
+]
+dependencies = ["requests>=2.32.0, <2.33.0"]
+keywords = ["handle", "username", "social media", "CLI"]
+[[project.authors]]
+name = "4MBL"
+
+[project.license]
+file = "LICENSE"
+
+[project.scripts]
+handles = "handles.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/4mbl/handles"
+"Bug Tracker" = "https://github.com/4mbl/handles/issues"
+Documentation = "https://github.com/4mbl/handles/blob/main/README.md"
+Repository = "https://github.com/4mbl/handles"
+
+[tool.ruff]
+line-length = 100
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "D203",
+    "D213",
+    "ISC001",
+    "COM812",
+
+    # disable docstring requirements
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+]
+exclude = ["tests"]
+
+[tool.ruff.format]
+quote-style = "single"
+indent-style = "space"
+
+[tool.ruff.lint.flake8-quotes]
+inline-quotes = "single"
