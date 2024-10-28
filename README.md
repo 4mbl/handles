@@ -1,6 +1,6 @@
 # [handles](https://4mbl.link/gh/handles)
 
-> A simple CLI tool to check the availability of a username on various platforms.
+> Command-line tool to check the availability of a username on various platforms.
 
 ## Table of Contents
 
