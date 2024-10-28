@@ -10,8 +10,8 @@ from handles.mapping import Platforms
 
 DEFAULT_INPUT_DIR = Path(Path.cwd(), 'input.txt')
 
-YES_CHAR = '✔️'
-NO_CHAR = '❌'
+YES_CHAR = '\u2714'  # ✔️
+NO_CHAR = '\u274c'  # ❌
 
 
 def process_input(input_file: Path = DEFAULT_INPUT_DIR) -> list[str]:
