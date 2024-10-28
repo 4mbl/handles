@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "handles"
-version = "0.1.0"
+version = "0.1.1"
 description = "Command-line tool to check the availability of a username on various platforms."
 readme = "README.md"
 requires-python = ">=3.9"
