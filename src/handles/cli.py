@@ -2,7 +2,9 @@
 from __future__ import annotations
 
 import argparse
+from concurrent.futures import ThreadPoolExecutor, as_completed
 from pathlib import Path
+from typing import Any
 
 from handles.mapping import Platforms
 
@@ -25,7 +27,15 @@ def process_input(input_file: Path = DEFAULT_INPUT_DIR) -> list[str]:
     return usernames
 
 
-def cli(argv: list[str] | None = None) -> None:
+def check_availability(platform: Platforms, usernames: list[str]) -> list[tuple[str, str]]:
+    results: list[tuple[str, str]] = []
+    for username in usernames:
+        result = YES_CHAR if platform.value().is_available(username) else NO_CHAR
+        results.append((username, result))
+    return results
+
+
+def cli(argv: list[str] | None = None) -> None:  # noqa: C901
     available_platforms = ', '.join([platform.name.lower() for platform in Platforms])
 
     parser = argparse.ArgumentParser(
@@ -61,12 +71,23 @@ def cli(argv: list[str] | None = None) -> None:
                 print(f'Warning: Platform "{platform}" is not supported.')
 
     name_width = max(len(p.name) for p in selected_platforms) + 2
-    for platform in selected_platforms:
-        results = (
-            platform.value().are_available(usernames)
-            if len(usernames) > 1
-            else (YES_CHAR if platform.value().is_available(usernames[0]) else NO_CHAR)
-        )
-        print(f'{platform.name.lower():<{name_width}} : {results}')
+    results_dict: dict[str, Any] = {platform.name.lower(): [] for platform in selected_platforms}
+
+    with ThreadPoolExecutor() as executor:
+        future_to_platform = {
+            executor.submit(check_availability, platform, usernames): platform
+            for platform in selected_platforms
+        }
+        for future in as_completed(future_to_platform):
+            platform = future_to_platform[future]
+            try:
+                results = future.result()
+                results_dict[platform.name.lower()] = results
+            except Exception as exc:  # noqa: BLE001
+                print(f'Platform {platform.name} generated an exception: {exc}')
+
+    for platform, results in results_dict.items():
+        for username, result in results:
+            print(f'{platform:<{name_width}} : {username} {result}')
 
     raise SystemExit(0)
