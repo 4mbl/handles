@@ -2,27 +2,26 @@
 from __future__ import annotations
 
 import argparse
-import os
 from pathlib import Path
 
 from handles.mapping import Platforms
 
-DEFAULT_INPUT_DIR = Path(Path(__file__).parent, 'secret')
+DEFAULT_INPUT_DIR = Path(Path.cwd(), 'input.txt')
 
 YES_CHAR = '✔️'
 NO_CHAR = '❌'
 
-def process_input(input_dir: Path = DEFAULT_INPUT_DIR) -> list[str]:
+
+def process_input(input_file: Path = DEFAULT_INPUT_DIR) -> list[str]:
     usernames = []
-    for file_name in os.listdir(input_dir):
-        with Path(input_dir, file_name).open() as f:
-            for line in f:
-                if line == '\n':
-                    continue
-                if file_name.endswith('.txt'):
-                    usernames.append(line.strip())
-                elif file_name.endswith('.csv'):
-                    usernames.append(line.split(';')[0].rstrip())
+    with Path(input_file).open() as f:
+        for line in f:
+            if line == '\n':
+                continue
+            if input_file.as_posix().endswith('.txt'):
+                usernames.append(line.strip())
+            elif input_file.as_posix().endswith('.csv'):
+                usernames.append(line.split(';')[0].rstrip())
     return usernames
 
 
@@ -33,7 +32,7 @@ def cli(argv: list[str] | None = None) -> None:
         description='Check username availability across platforms.',
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=30),
     )
-    parser.add_argument('username', type=str, help='The username to check')
+    parser.add_argument('username', type=str, help='The username to check', nargs='?')
     parser.add_argument(
         '--platforms',
         type=str,
@@ -42,7 +41,9 @@ def cli(argv: list[str] | None = None) -> None:
     parser.add_argument('--file', type=str, help='File containing usernames to check')
 
     args = parser.parse_args(argv)
-    usernames = [args.username]
+    usernames = []
+    if args.username:
+        usernames.append(args.username)
 
     if args.file:
         usernames.extend(process_input(Path(args.file)))
