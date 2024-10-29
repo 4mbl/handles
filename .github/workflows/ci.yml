@@ -6,6 +6,7 @@ on:
 
 env:
   PACKAGE_VERSION: 0.0.0
+  PYTHONUTF8: 1
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
