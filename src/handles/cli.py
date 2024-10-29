@@ -88,6 +88,6 @@ def cli(argv: list[str] | None = None) -> None:  # noqa: C901
 
     for platform, results in results_dict.items():
         for username, result in results:
-            print(f'{platform:<{name_width}} : {username} {result}'.encode())
+            print(f'{platform:<{name_width}} : {username} {result}')
 
     raise SystemExit(0)
