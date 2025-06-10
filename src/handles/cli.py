@@ -35,7 +35,7 @@ def check_availability(platform: Platforms, usernames: list[str]) -> list[tuple[
     return results
 
 
-def cli(argv: list[str] | None = None) -> None:  # noqa: C901
+def cli(argv: list[str] | None = None) -> None:  # noqa: C901, PLR0912
     available_platforms = ', '.join([platform.name.lower() for platform in Platforms])
 
     parser = argparse.ArgumentParser(
@@ -43,14 +43,23 @@ def cli(argv: list[str] | None = None) -> None:  # noqa: C901
         formatter_class=lambda prog: argparse.HelpFormatter(prog, max_help_position=30),
     )
     parser.add_argument('username', type=str, help='The username to check', nargs='?')
+
+    parser.add_argument('--file', type=str, help='File containing usernames to check')
+
     parser.add_argument(
         '--platforms',
         type=str,
-        help=f'Comma-separated list of platforms to check (available: "*", {available_platforms})',
+        help=f'Comma-separated list of platforms to check (available: "*", {available_platforms}).',
+        default='*',
     )
-    parser.add_argument('--file', type=str, help='File containing usernames to check')
 
     args = parser.parse_args(argv)
+
+    if not args.username and not args.file:
+        parser.error('You must provide either a username or a file with usernames.')
+    if args.username and args.file:
+        parser.error('You cannot provide both a username and a file with usernames.')
+
     usernames = []
     if args.username:
         usernames.append(args.username)
