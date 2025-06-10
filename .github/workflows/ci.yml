@@ -1,12 +1,12 @@
 name: CI
 
 on:
-  pull_request:
-    types: [opened, synchronize]
+  push:
+    branches:
+      - '*'
 
 env:
-  PACKAGE_VERSION: 0.0.0
-  PYTHONUTF8: 1
+  PYTHONUTF8: 1 # force utf-8 encoding to fix windows compat
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
@@ -29,23 +29,33 @@ jobs:
 
       - name: Install package
         run: |
-          python3 -m pip install --upgrade pip
-          python3 -m pip install . --force-reinstall
+          python -m pip install --upgrade pip
+          python -m pip install . --force-reinstall
 
       - name: Run tox
         run: |
-          python3 -m pip install tox tox-gh
+          pip install tox tox-gh
           tox -p auto
+
+      - name: Set version to 0.0.0
+        run: |
+          # use tomlkit till all supported python versions support tomllib
+          if [[ "${{ matrix.python-version }}" == "3.10" ]]; then
+            pip install build tomlkit
+            python -c "import tomlkit; f=open('pyproject.toml', 'r'); data=tomlkit.parse(f.read()); f.close(); data['project']['version']='0.0.0'; f=open('pyproject.toml', 'w'); f.write(tomlkit.dumps(data)); f.close()"
+          else
+            pip install build tomli-w
+            python -c "import tomllib; import tomli_w; reader=open('pyproject.toml', 'rb'); data=tomllib.load(reader); data['project']['version']='0.0.0'; writer=open('pyproject.toml', 'wb'); tomli_w.dump(data, writer)"
+          fi
+        shell: bash
 
       - name: Build package
         run: |
-          python3 -m pip install build tomli tomli-w
-          python3 -c "import tomli; import tomli_w; reader=open('pyproject.toml', 'rb'); data=tomli.load(reader); data['project']['version']='0.0.0'; writer=open('pyproject.toml', 'wb'); tomli_w.dump(data, writer)"
-          python3 -m build
+          python -m build
 
       - name: Install package
         run: |
-          python3 -m pip install ./dist/handles-${{ env.PACKAGE_VERSION }}-py3-none-any.whl --force-reinstall
+          pip install ./dist/handles-0.0.0-py3-none-any.whl --force-reinstall
 
       - name: Run package
         run: |
