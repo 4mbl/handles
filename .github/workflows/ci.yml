@@ -3,7 +3,7 @@ name: CI
 on:
   push:
     branches:
-      - '*'
+      - '**'
 
 env:
   PYTHONUTF8: 1 # force utf-8 encoding to fix windows compat
