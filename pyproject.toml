@@ -73,7 +73,6 @@ inline-quotes = "single"
 pythonpath = ["src"]
 
 [tool.tox]
-requires = ["tox>=4.21"]
 env_list = [
     "3.13",
     "3.12",
