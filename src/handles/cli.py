@@ -20,10 +20,10 @@ def process_input(input_file: Path = DEFAULT_INPUT_DIR) -> list[str]:
         for line in f:
             if line == '\n':
                 continue
-            if input_file.as_posix().endswith('.txt'):
-                usernames.append(line.strip())
-            elif input_file.as_posix().endswith('.csv'):
+            if input_file.as_posix().endswith('.csv'):
                 usernames.append(line.split(';')[0].rstrip())
+            else:
+                usernames.append(line.strip())
     return usernames
 
 
