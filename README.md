@@ -23,6 +23,9 @@ python3 -m pip install --upgrade handles
 # check if a username is available on any of the supported platforms
 handles --platforms '*' myusername
 
+# check if a username is available on multiple platforms
+handles --platforms github,npm myusername
+
 # check if usernames on a file are available on github
 handles --platforms github --file usernames.txt
 ```
