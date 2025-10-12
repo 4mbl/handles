@@ -4,3 +4,6 @@ class Platform:
 
     def are_available(self, usernames: list[str]) -> list:
         return list(filter(self.is_available, usernames))
+
+    def format_username(self, username: str) -> str:
+        return '@' + username

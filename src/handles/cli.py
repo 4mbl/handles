@@ -20,10 +20,10 @@ def process_input(input_file: Path = DEFAULT_INPUT_DIR) -> list[str]:
         for line in f:
             if line == '\n':
                 continue
-            if input_file.as_posix().endswith('.txt'):
-                usernames.append(line.strip())
-            elif input_file.as_posix().endswith('.csv'):
+            if input_file.as_posix().endswith('.csv'):
                 usernames.append(line.split(';')[0].rstrip())
+            else:
+                usernames.append(line.strip())
     return usernames
 
 
@@ -31,7 +31,7 @@ def check_availability(platform: Platforms, usernames: list[str]) -> list[tuple[
     results: list[tuple[str, str]] = []
     for username in usernames:
         result = YES_CHAR if platform.value().is_available(username) else NO_CHAR
-        results.append((username, result))
+        results.append((platform.value().format_username(username), result))
     return results
 
 
@@ -97,6 +97,6 @@ def cli(argv: list[str] | None = None) -> None:  # noqa: C901, PLR0912
 
     for platform, results in results_dict.items():
         for username, result in results:
-            print(f'{platform:<{name_width}} : {username} {result}')
+            print(f'{result}\t{platform:<{name_width}}\t{username}')
 
     raise SystemExit(0)
