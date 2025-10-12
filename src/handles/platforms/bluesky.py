@@ -13,3 +13,6 @@ class Bluesky(Platform):
         url = f'https://public.api.bsky.app/xrpc/com.atproto.identity.resolveHandle?handle={handle}'
         response = requests.get(url, timeout=10)
         return response.status_code != OK
+
+    def format_username(self, username: str) -> str:
+        return '@' + username + '.bsky.social'
