@@ -7,7 +7,7 @@ name = "handles"
 version = "0.1.1"
 description = "Command-line tool to check the availability of a username on various platforms."
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.10"
 classifiers = [
     "Environment :: Console",
     "Development Status :: 5 - Production/Stable",
@@ -16,7 +16,6 @@ classifiers = [
     "Natural Language :: English",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -78,7 +77,6 @@ env_list = [
     "3.12",
     "3.11",
     "3.10",
-    "3.9",
     "format",
     "lint",
     "typecheck",
@@ -91,7 +89,6 @@ skip_missing_interpreters = true
 "3.12" = ["3.12", "format", "lint", "typecheck"]
 "3.11" = ["3.11", "format", "lint", "typecheck"]
 "3.10" = ["3.10", "format", "lint", "typecheck"]
-"3.9" = ["3.9", "format", "lint", "typecheck"]
 
 [tool.tox.env_run_base]
 deps = ["-r requirements-dev.txt"]
