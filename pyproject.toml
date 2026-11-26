@@ -24,7 +24,7 @@ classifiers = [
     "Topic :: Software Development",
     "Typing :: Typed",
 ]
-dependencies = ["requests>=2.32.0, <2.33.0"]
+dependencies = ["requests>=2.32.0, <2.35.0"]
 keywords = ["handle", "username", "social media", "CLI"]
 [[project.authors]]
 name = "4MBL"
@@ -47,6 +47,7 @@ line-length = 100
 [tool.ruff.lint]
 select = ["ALL"]
 ignore = [
+    "CPY001",
     "D203",
     "D213",
     "ISC001",
