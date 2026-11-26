@@ -19,7 +19,7 @@ jobs:
       matrix:
         # windows is not tested due to flakyness and slow runners
         os: [ubuntu-latest]
-        python-version: ['3.9', '3.10', '3.11', '3.12', '3.13']
+        python-version: ['3.10', '3.11', '3.12', '3.13']
 
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
@@ -41,7 +41,7 @@ jobs:
       - name: Set version to 0.0.0
         run: |
           # use tomlkit till all supported python versions support tomllib
-          if [[ "${{ matrix.python-version }}" == "3.10" ]] || [[ "${{ matrix.python-version }}" == "3.9" ]]; then
+          if [[ "${{ matrix.python-version }}" == "3.10" ]]; then
             pip install build tomlkit
             python -c "import tomlkit; f=open('pyproject.toml', 'r'); data=tomlkit.parse(f.read()); f.close(); data['project']['version']='0.0.0'; f=open('pyproject.toml', 'w'); f.write(tomlkit.dumps(data)); f.close()"
           else
